@@ -163,34 +163,37 @@
       },
       "form": {
         "css": "modal-lg",
+        "style": "min-width:1024px;",
         "inputs": [
           {
             "type": "input",
-            "placeholder": "STFC_CONNECTION",
+            "placeholder": "var",
             "title": {
-              "es": "Funcion",
-              "en": "Function"
+              "es": "Nombre de la funcion",
+              "en": "Function name"
             },
             "id": "function_name",
             "css": "col-md-12"
           },
           {
-            "type": "input",
-            "placeholder": "REQUTEXT=Hello SAP,REQPRICE=300,OPTIONS=1;",
+            "type": "html",
             "title": {
-              "es": "Parametros",
-              "en": "Parameters"
+              "es": "Tabla de parametros",
+              "en": "Parameters Table"
             },
-            "id": "parameters",
-            "css": "col-md-12"
+            "src": "table.html",
+            "id": "html",
+            "css": "col-md-12",
+            "style": "height:350px !important;"
           },
           {
             "type": "input",
-            "placeholder": "res",
+            "placeholder": "var",
             "title": {
               "es": "Resultado",
               "en": "Result"
             },
+            "remove_vars": true,
             "id": "result",
             "css": "col-md-12"
           }

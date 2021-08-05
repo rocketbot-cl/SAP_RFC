@@ -67,19 +67,33 @@ if module == "connect":
 
 if module == "execute_function":
     function_name = GetParams("function_name")
-    parameters = GetParams("parameters")
+    parameters = eval(GetParams("iframe"))
     result = GetParams("result")
-
     try:
         import json
         FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
         executable_path = base_path + "modules" + os.sep + "SAP_RFC" + os.sep + "libs" + os.sep
         executable = executable_path + "sap_rfc.exe "
-        args = string_connection + " {function_name} {parameters}".format(function_name=function_name, parameters=parameters)
+        parameters_connection_string = ""
+        for table in parameters['table']:
+            parameters_connection_string += table['name'] + "=" + table['value'] + ","
+        args = string_connection + " {function_name} {parameters}".format(function_name=function_name, parameters=parameters_connection_string[:-1])
+        print("args: ", args)
         pipe = Popen(executable+args, stdout=PIPE, shell=True)
         text = pipe.communicate()[0].decode('utf-8')
-        text = text.replace("\n","").replace("\r","")
+        if "ErrorMessage" in text:
+            print(text)
+            error_text = text.split("ErrorMessage: ")[1].split("\n")[0]
+            raise Exception(error_text)
+        text = text.replace("\r\n","")
         text_json = json.loads(text)
+        for k, v in text_json.items():
+            try:
+                v = v.replace("\r\n","")
+                v = json.loads(v)
+                text_json[k] = v
+            except:
+                continue
         SetVar(result, text_json)
     except Exception as e:
         SetVar(result, False)
