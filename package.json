@@ -196,8 +196,7 @@
             },
             "remove_vars": true,
             "id": "result",
-            "css": "col-md-12",
-            "remove_vars": true
+            "css": "col-md-12"
           }
         ]
       },
