@@ -2,6 +2,8 @@
 
 Module to connect and execute functions using RFC
 
+![alt text](https://i.imgur.com/mPdk6EZ.png)
+
 ## Commands
 
 <ul class="commands_readme">
