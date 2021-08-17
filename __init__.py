@@ -56,7 +56,9 @@ if module == "connect":
         executable = executable_path + "sap_rfc.exe "
         string_connection = "name={name},app_server_host={app_server_host},client_id={client_id},user={user},password={password},system_number={system_number},language={language},sap_router={sap_router},system_id={system_id}".format(name=name, app_server_host=app_server_host, client_id=client_id, user=user, password=password, system_number=system_number, language=language, sap_router=sap_router, system_id=system_id)
         pipe = Popen(executable+string_connection, stdout=PIPE, shell=True)
-        text = pipe.communicate()[0].decode('utf-8')
+        connection_result = pipe.communicate()[0]
+        print("connection_result: ", connection_result)
+        text = connection_result.decode('utf-8')
         if "True" in text:
             SetVar(result, True)
     except Exception as e:
