@@ -51,6 +51,7 @@ if module == "connect":
     result = GetParams("result")
 
     try:
+        name = name.replace(" ", "_")
         FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
         executable_path = base_path + "modules" + os.sep + "SAP_RFC" + os.sep + "libs" + os.sep
         executable = executable_path + "sap_rfc.exe "

@@ -1,5 +1,5 @@
 document.getElementById("add-row").addEventListener("click", function(){
-    table.addRow({});
+    table.rowManager.addRow({}, 0);
 });
 document.getElementById("clear").addEventListener("click", function(){
     table.clearData()
