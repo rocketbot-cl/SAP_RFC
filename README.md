@@ -19,6 +19,10 @@ With this module you will be able to execute remote functions of the RFC type. Y
 ### OS:
   - Windows
 
+### Updates
+## 02-Sep-2021
+- Add table of errors and fix spaces in name connection.
+
 ### Dependencies
 - [**SAP Connector**](https://support.sap.com/en/product/connectors/msnet.html)
         
