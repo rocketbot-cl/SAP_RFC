@@ -81,7 +81,7 @@ if module == "execute_function":
         for table in parameters['table']:
             if " " in table['value']:
                 table['value'] = "\"" + table['value'] + "\""
-            parameters_connection_string += table['name'] + "=" + table['value'] + ","
+            parameters_connection_string += table['name'] + "=" + table['value'] + " ,"
 
         args = string_connection + " {function_name} {parameters}".format(function_name=function_name, parameters=parameters_connection_string[:-1])
         print("args: ", args)
