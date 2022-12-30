@@ -9,9 +9,9 @@
   "windows": true,
   "mac": true,
   "docker": false,
+  "type": "module",
   "name": "SAP_RFC",
-  "dependencies": {
-  },
+  "dependencies": {},
   "title": {
     "en": "SAP_RFC",
     "es": "SAP_RFC"
@@ -21,13 +21,13 @@
     {
       "en": {
         "title": "Connect to SAP",
-        "description": "Connect to SAP using RFC",
+        "description": "Connects to an SAP instance via RFC",
         "title_options": "Select Option",
         "options": null
       },
       "es": {
         "title": "Conectarse a SAP",
-        "description": "Se conecta SAP por RFC",
+        "description": "Se conecta a una instancia de SAP mediante RFC",
         "title_options": "Seleccione una opción",
         "options": null
       },
@@ -42,8 +42,8 @@
               "en": "Connection name"
             },
             "description": {
-              "es": "Nombre de la conexion a SAP",
-              "en": "Connection name to SAP"
+              "es": "Nombre de la conexion. Puede ser cualquier nombre",
+              "en": "Connection name. Can be any name"
             },
             "id": "name",
             "css": "col-md-6"
@@ -56,8 +56,8 @@
               "en": "App Server Host"
             },
             "description": {
-              "es": "Host del servidor de aplicaciones",
-              "en": "App Server Host"
+              "es": "Dirección IP del servidor de aplicaciones",
+              "en": "IP address of the application server"
             },
             "id": "app_server_host",
             "css": "col-md-6"
@@ -70,8 +70,8 @@
               "en": "Client"
             },
             "description": {
-              "es": "Cliente de SAP",
-              "en": "SAP Client"
+              "es": "Número de cliente",
+              "en": "Client number"
             },
             "id": "client_id",
             "css": "col-md-6"
@@ -84,8 +84,8 @@
               "en": "User"
             },
             "description": {
-              "es": "Usuario de SAP",
-              "en": "SAP User"
+              "es": "Nombre de usuario",
+              "en": "User name"
             },
             "id": "user",
             "css": "col-md-6"
@@ -98,12 +98,13 @@
               "en": "Password"
             },
             "description": {
-              "es": "Contraseña de SAP",
-              "en": "SAP Password"
+              "es": "Contraseña del usuario",
+              "en": "User password"
             },
             "id": "password",
             "css": "col-md-6"
-          },{
+          },
+          {
             "type": "input",
             "placeholder": "01",
             "title": {
@@ -111,8 +112,8 @@
               "en": "System Number"
             },
             "description": {
-              "es": "Numero de sistema de SAP",
-              "en": "SAP System Number"
+              "es": "Número de sistema",
+              "en": "System number"
             },
             "id": "system_number",
             "css": "col-md-6"
@@ -125,8 +126,8 @@
               "en": "Language"
             },
             "description": {
-              "es": "Idioma de SAP",
-              "en": "SAP Language"
+              "es": "Idioma del sistema. Por defecto es EN",
+              "en": "System language. By default is EN"
             },
             "id": "language",
             "css": "col-md-6"
@@ -139,8 +140,8 @@
               "en": "SAP Router"
             },
             "description": {
-              "es": "SAP Router",
-              "en": "SAP Router"
+              "es": "Dirección IP del router de SAP",
+              "en": "IP address of the SAP router"
             },
             "id": "sap_router",
             "css": "col-md-6"
@@ -153,8 +154,8 @@
               "en": "System ID"
             },
             "description": {
-              "es": "ID de sistema de SAP",
-              "en": "SAP System ID"
+              "es": "ID del sistema. Por defecto es PROD",
+              "en": "System ID. By default is PROD"
             },
             "id": "system_id",
             "css": "col-md-6"
@@ -167,12 +168,8 @@
               "en": "Result"
             },
             "description": {
-              "es": "Variable donde se guardara el resultado de la conexion",
-              "en": "Variable where the result of the connection will be saved"
-            },
-            "help": {
-              "es": "Nombre de la variable sin {}",
-              "en": "Variable name without {}"
+              "es": "Resultado de la conexión. Retorna True si la conexion fue exitosa",
+              "en": "Result of the connection. Returns True if the connection was successful"
             },
             "id": "result",
             "css": "col-md-12",
@@ -196,13 +193,13 @@
     {
       "en": {
         "title": "Execute function",
-        "description": "Execute a function using RFC",
+        "description": "Executes a function using RFC taking into account the input parameters. Returns the output parameters after execution.",
         "title_options": "Select Option",
         "options": null
       },
       "es": {
         "title": "Ejecutar funcion",
-        "description": "Ejecuta una funcion usando RFC",
+        "description": "Ejecuta una funcion usando RFC teniendo en cuenta los parametros de entrada. Devuelve los parametros de salida luego de la ejecucion.",
         "title_options": "Seleccione una opción",
         "options": null
       },
@@ -219,20 +216,21 @@
             },
             "description": {
               "es": "Nombre de la funcion a ejecutar",
-              "en": "Function name to execute"
+              "en": "Name of the function to execute"
             },
             "id": "function_name",
             "css": "col-md-12"
           },
           {
             "type": "html",
+            "placeholder": "input",
             "title": {
               "es": "Tabla de parametros",
               "en": "Parameters Table"
             },
             "description": {
-              "es": "Tabla de parametros de la funcion",
-              "en": "Function parameters table"
+              "es": "Tabla de parametros de entrada",
+              "en": "Input parameters table"
             },
             "src": "table.html",
             "id": "html",
@@ -247,13 +245,9 @@
               "en": "Result"
             },
             "description": {
-                "es": "Variable donde se guardara el resultado de la conexion",
-                "en": "Variable where the result of the connection will be saved"
-              },
-              "help": {
-                "es": "Nombre de la variable sin {}",
-                "en": "Variable name without {}"
-              },
+              "es": "Nombre de la variable donde se almacenara el resultado. Retorna los parametros de salida.",
+              "en": "Name of the variable where the result will be stored. Return output parameters"
+            },
             "remove_vars": true,
             "id": "result",
             "css": "col-md-12"

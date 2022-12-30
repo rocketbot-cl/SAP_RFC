@@ -1,6 +1,6 @@
 # SAP_RFC
   
-Módulo para conectarse a SAP mediante RFC y ejecutar funciones  
+Module to connect to SAP using RFC and execute functions  
 
 *Read this in other languages: [English](Manual_SAP_RFC.md), [Español](Manual_SAP_RFC.es.md).*
   
@@ -10,30 +10,34 @@ Módulo para conectarse a SAP mediante RFC y ejecutar funciones
 __Descarga__ e __instala__ el contenido en la carpeta 'modules' en la ruta de Rocketbot.  
 
 
+## Como usar este modulo
+Para poder usar el modulo de SAP_RFC debemos tener en cuenta que el servidor donde se vaya a ejecutar las funciones mediante RFC esten activos y funcionando de forma correcta. Tener en cuenta todos los datos para realizar la conexion a SAP, asi como el usuario, contraseña, SAP Router y demas inputs necesarios.
+
+
 
 ## Descripción de los comandos
 
 ### Conectarse a SAP
   
-Se conecta SAP por RFC
+Se conecta a una instancia de SAP mediante RFC
 |Parámetros|Descripción|ejemplo|
 | --- | --- | --- |
-|Nombre de la conexion|Nombre de la conexion a SAP|test|
-|App Server Host|Host del servidor de aplicaciones|20.20.40.3|
-|Cliente|Cliente de SAP|400|
-|Usuario|Usuario de SAP|User 1|
-|Contraseña|Contraseña de SAP|)xV3-r9=c_|
-|Numero de sistema|Numero de sistema de SAP|01|
-|Idioma|Idioma de SAP|EN|
-|SAP Router|SAP Router|/H/13.157.33.21|
-|ID de sistema|ID de sistema de SAP|PROD|
-|Resultado|Variable donde se guardara el resultado de la conexion|res|
+|Nombre de la conexion|Nombre de la conexion. Puede ser cualquier nombre|test|
+|App Server Host|Dirección IP del servidor de aplicaciones|20.20.40.3|
+|Cliente|Número de cliente|400|
+|Usuario|Nombre de usuario|User 1|
+|Contraseña|Contraseña del usuario|)xV3-r9=c_|
+|Numero de sistema|Número de sistema|01|
+|Idioma|Idioma del sistema. Por defecto es EN|EN|
+|SAP Router|Dirección IP del router de SAP|/H/13.157.33.21|
+|ID de sistema|ID del sistema. Por defecto es PROD|PROD|
+|Resultado|Resultado de la conexión. Retorna True si la conexion fue exitosa|res|
 
 ### Ejecutar funcion
   
-Ejecuta una funcion usando RFC
+Ejecuta una funcion usando RFC teniendo en cuenta los parametros de entrada. Devuelve los parametros de salida luego de la ejecucion.
 |Parámetros|Descripción|ejemplo|
 | --- | --- | --- |
 |Nombre de la funcion|Nombre de la funcion a ejecutar|var|
-|Tabla de parametros|Tabla de parametros de la funcion||
-|Resultado|Variable donde se guardara el resultado de la conexion|var|
+|Tabla de parametros|Tabla de parametros de entrada|input|
+|Resultado|Nombre de la variable donde se almacenara el resultado. Retorna los parametros de salida.|var|
