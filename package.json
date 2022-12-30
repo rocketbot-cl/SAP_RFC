@@ -1,10 +1,10 @@
 {
   "author": "Nicolas Liendro",
-  "description": "Connect to SAP using RFC and execute functions",
+  "description": "Module to connect to SAP using RFC and execute functions",
   "disclaimer": "THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-  "version": "1.1",
+  "version": "1.1.1",
   "license": "MIT",
-  "homepage": "http://rocketbot.co/",
+  "homepage": "http://rocketbot.com/",
   "linux": true,
   "windows": true,
   "mac": true,
@@ -41,6 +41,10 @@
               "es": "Nombre de la conexion",
               "en": "Connection name"
             },
+            "description": {
+              "es": "Nombre de la conexion a SAP",
+              "en": "Connection name to SAP"
+            },
             "id": "name",
             "css": "col-md-6"
           },
@@ -49,6 +53,10 @@
             "placeholder": "20.20.40.3",
             "title": {
               "es": "App Server Host",
+              "en": "App Server Host"
+            },
+            "description": {
+              "es": "Host del servidor de aplicaciones",
               "en": "App Server Host"
             },
             "id": "app_server_host",
@@ -61,6 +69,10 @@
               "es": "Cliente",
               "en": "Client"
             },
+            "description": {
+              "es": "Cliente de SAP",
+              "en": "SAP Client"
+            },
             "id": "client_id",
             "css": "col-md-6"
           },
@@ -70,6 +82,10 @@
             "title": {
               "es": "Usuario",
               "en": "User"
+            },
+            "description": {
+              "es": "Usuario de SAP",
+              "en": "SAP User"
             },
             "id": "user",
             "css": "col-md-6"
@@ -81,6 +97,10 @@
               "es": "Contraseña",
               "en": "Password"
             },
+            "description": {
+              "es": "Contraseña de SAP",
+              "en": "SAP Password"
+            },
             "id": "password",
             "css": "col-md-6"
           },{
@@ -89,6 +109,10 @@
             "title": {
               "es": "Numero de sistema",
               "en": "System Number"
+            },
+            "description": {
+              "es": "Numero de sistema de SAP",
+              "en": "SAP System Number"
             },
             "id": "system_number",
             "css": "col-md-6"
@@ -100,6 +124,10 @@
               "es": "Idioma",
               "en": "Language"
             },
+            "description": {
+              "es": "Idioma de SAP",
+              "en": "SAP Language"
+            },
             "id": "language",
             "css": "col-md-6"
           },
@@ -107,6 +135,10 @@
             "type": "input",
             "placeholder": "/H/13.157.33.21",
             "title": {
+              "es": "SAP Router",
+              "en": "SAP Router"
+            },
+            "description": {
               "es": "SAP Router",
               "en": "SAP Router"
             },
@@ -120,6 +152,10 @@
               "es": "ID de sistema",
               "en": "System ID"
             },
+            "description": {
+              "es": "ID de sistema de SAP",
+              "en": "SAP System ID"
+            },
             "id": "system_id",
             "css": "col-md-6"
           },
@@ -129,6 +165,14 @@
             "title": {
               "es": "Resultado",
               "en": "Result"
+            },
+            "description": {
+              "es": "Variable donde se guardara el resultado de la conexion",
+              "en": "Variable where the result of the connection will be saved"
+            },
+            "help": {
+              "es": "Nombre de la variable sin {}",
+              "en": "Variable name without {}"
             },
             "id": "result",
             "css": "col-md-12",
@@ -173,6 +217,10 @@
               "es": "Nombre de la funcion",
               "en": "Function name"
             },
+            "description": {
+              "es": "Nombre de la funcion a ejecutar",
+              "en": "Function name to execute"
+            },
             "id": "function_name",
             "css": "col-md-12"
           },
@@ -181,6 +229,10 @@
             "title": {
               "es": "Tabla de parametros",
               "en": "Parameters Table"
+            },
+            "description": {
+              "es": "Tabla de parametros de la funcion",
+              "en": "Function parameters table"
             },
             "src": "table.html",
             "id": "html",
@@ -194,6 +246,14 @@
               "es": "Resultado",
               "en": "Result"
             },
+            "description": {
+                "es": "Variable donde se guardara el resultado de la conexion",
+                "en": "Variable where the result of the connection will be saved"
+              },
+              "help": {
+                "es": "Nombre de la variable sin {}",
+                "en": "Variable name without {}"
+              },
             "remove_vars": true,
             "id": "result",
             "css": "col-md-12"
