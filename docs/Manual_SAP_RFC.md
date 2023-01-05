@@ -1,42 +1,43 @@
-
-
-
-
 # SAP_RFC
   
-Connect to SAP using RFC and execute functions  
+Module to connect to SAP using RFC and execute functions  
+
+*Read this in other languages: [English](Manual_SAP_RFC.md), [Español](Manual_SAP_RFC.es.md).*
   
-![banner](https://i.imgur.com/gICl7an.jpg)
-## Como instalar este módulo
+![banner](imgs/Banner_SAP_RFC.png)
+## How to install this module
   
-__Descarga__ e __instala__ el contenido en la carpeta 'modules' en la ruta de rocketbot.  
+__Download__ and __install__ the content in 'modules' folder in Rocketbot path  
+
+
+## How to use this module
+In order to use the SAP_RFC module we must take into account that the server where the functions are going to be executed through RFC are active and working correctly. Take into account all the data to make the connection to SAP, as well as the user, password, SAP Router and other necessary inputs.
 
 
 
-## Descripción de los comandos
+## Description of the commands
 
-### Conectarse a SAP
+### Connect to SAP
   
-Se conecta a una instancia de SAP mediante RFC
-|Parámetros|Descripción|ejemplo|
+Connects to an SAP instance via RFC
+|Parameters|Description|example|
 | --- | --- | --- |
-|Nombre de la conexion|Nombre de la conexion. Puede ser cualquier nombre|test|
-|App Server Host|Dirección IP del servidor de aplicaciones|20.20.40.3|
-|Cliente|Número de cliente|400|
-|Usuario|Nombre de usuario|User 1|
-|Contraseña|Contraseña del usuario|)xV3-r9=c_|
-|Numero de sistema|Número de sistema|01|
-|Idioma|Idioma del sistema. Por defecto es EN|EN|
-|SAP Router|Dirección IP del router de SAP|/H/13.157.33.21|
-|ID de sistema|ID del sistema. Por defecto es PROD|PROD|
-|Resultado|Resultado de la conexión. Retorna True si la conexion fue exitosa|res|
+|Connection name|Connection name. Can be any name|test|
+|App Server Host|IP address of the application server|20.20.40.3|
+|Client|Client number|400|
+|User|User name|User 1|
+|Password|User password|)xV3-r9=c_|
+|System Number|System number|01|
+|Language|System language. By default is EN|EN|
+|SAP Router|IP address of the SAP router|/H/13.157.33.21|
+|System ID|System ID. By default is PROD|PROD|
+|Result|Result of the connection. Returns True if the connection was successful|res|
 
-### Ejecutar funcion
+### Execute function
   
-Ejecuta una funcion usando RFC teniendo en cuenta los parametros de entrada. Devuelve los parametros de salida luego de 
-la ejecucion.
-|Parámetros|Descripción|ejemplo|
+Executes a function using RFC taking into account the input parameters. Returns the output parameters after execution.
+|Parameters|Description|example|
 | --- | --- | --- |
-|Nombre de la funcion|Nombre de la funcion a ejecutar|var|
-|Tabla de parametros|Tabla de parametros de entrada||
-|Resultado|Nombre de la variable donde se almacenara el resultado. Retorna los parametros de salida.|var|
+|Function name|Name of the function to execute|var|
+|Parameters Table|Input parameters table|input|
+|Result|Name of the variable where the result will be stored. Return output parameters|var|
