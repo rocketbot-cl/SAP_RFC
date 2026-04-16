@@ -29,7 +29,7 @@ if cur_path not in sys.path:
     sys.path.append(cur_path)
 
 from subprocess import Popen, PIPE
-import os
+import os, re
 
 """
     Obtengo el modulo que fue invocado
@@ -98,6 +98,8 @@ def clean_rfc_json(text):
 
 def _clean_array(text):
     """Limpia un array o serie de objetos JSON con comillas rotas."""
+    import re
+    import json
     raw_objects = re.findall(r'\{[^{}]+\}', text)
     
     cleaned = []
@@ -165,7 +167,7 @@ if module == "execute_function":
         parameters_connection_string = ""
         for table in parameters['table']:
             value = rocketbot.replaceByVar(vars_, table['value'])
-            print(value)
+            # print(value)
             
             if " " in value:
                 table['value'] = "\"" + value + "\""
@@ -216,7 +218,7 @@ if module == "execute_function":
                 continue
         SetVar(result, text_json)
     except Exception as e:
-        SetVar(result, text)
+        SetVar(result, False)
         print("\x1B[" + "31;40mAn error occurred\x1B[" + "0m")
         PrintException()
         raise e
