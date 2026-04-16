@@ -29,7 +29,7 @@ if cur_path not in sys.path:
     sys.path.append(cur_path)
 
 from subprocess import Popen, PIPE
-import os
+import os, re
 
 """
     Obtengo el modulo que fue invocado
@@ -37,6 +37,92 @@ import os
 
 module = GetParams("module")
 global string_connection
+
+def clean_rfc_json(text):
+    """
+    Limpia JSON proveniente de SAP RFC.
+    Recibe el text crudo, retorna un string JSON limpio.
+    Funciona con dict o lista.
+    """
+    global _clean_array
+    
+    import re
+    import json
+    
+    try:
+        json.loads(text)
+        return text
+    except (json.JSONDecodeError, ValueError):
+        pass
+    
+    stripped = text.strip()
+    
+    if stripped.startswith('{') and '[' in stripped:
+        # Es un dict que puede tener arrays embebidos como string
+        # Extraer arrays embebidos y limpiarlos
+        def clean_embedded_array(match):
+            global _clean_array
+            key = match.group(1)
+            arr_str = match.group(2)
+            cleaned = _clean_array(arr_str)
+            return '"{}": {}'.format(key, cleaned)
+        
+        # Buscar "KEY": "[{...}]" (array como string) o "KEY": [{...}] (array directo)
+        # Primero intentar con array como string
+        result = re.sub(
+            r'"([^"]+)"\s*:\s*"(\[.*?\])"',
+            clean_embedded_array,
+            stripped,
+            flags=re.DOTALL
+        )
+        
+        # También limpiar arrays directos
+        result = re.sub(
+            r'"([^"]+)"\s*:\s*(\[[^\]]*\[.*?\])',
+            clean_embedded_array,
+            result,
+            flags=re.DOTALL
+        )
+        
+        try:
+            json.loads(result)
+            return result
+        except:
+            pass
+    
+    if stripped.startswith('[') or (stripped.startswith('{') and '":{' not in stripped):
+        return _clean_array(stripped)
+    
+    return text
+
+
+def _clean_array(text):
+    """Limpia un array o serie de objetos JSON con comillas rotas."""
+    import re
+    import json
+    raw_objects = re.findall(r'\{[^{}]+\}', text)
+    
+    cleaned = []
+    for obj_str in raw_objects:
+        inner = obj_str.strip('{}')
+        fields = inner.split('","')
+        
+        clean_obj = {}
+        for field in fields:
+            parts = field.split('":"', 1)
+            if len(parts) == 2:
+                key = parts[0].strip('" ').replace('\\', '')
+                value = parts[1].strip('" ')
+                value = value.replace('"', '').replace('\\', '')
+                clean_obj[key] = value
+        
+        if clean_obj:
+            cleaned.append(clean_obj)
+    
+    return json.dumps(cleaned, ensure_ascii=False)
+
+
+
 
 if module == "connect":
     name = GetParams("name")
@@ -74,25 +160,55 @@ if module == "execute_function":
     result = GetParams("result")
     try:
         import json
+        text = False
         FNULL = open(os.devnull, 'w')    #use this if you want to suppress output to stdout from the subprocess
         executable_path = base_path + "modules" + os.sep + "SAP_RFC" + os.sep + "libs" + os.sep
         executable = executable_path + "sap_rfc.exe "
         parameters_connection_string = ""
         for table in parameters['table']:
-            if " " in table['value']:
-                table['value'] = "\"" + table['value'] + "\""
-            parameters_connection_string += table['name'] + "=" + table['value'] + ","
-
+            value = rocketbot.replaceByVar(vars_, table['value'])
+            # print(value)
+            
+            if " " in value:
+                table['value'] = "\"" + value + "\""
+            parameters_connection_string += table['name'] + "=" + value + ","
+        
         args = string_connection + " {function_name} {parameters}".format(function_name=function_name, parameters=parameters_connection_string[:-1])
         print("args: ", args)
         pipe = Popen(executable+args, stdout=PIPE, shell=True)
-        text = pipe.communicate()[0].decode('utf-8')
+        res = pipe.communicate()
+        # print(res)
+        try:
+            text = res[0].decode('utf-8')
+        except:
+            text = res[0].decode('latin-1')
+
+
         if "ErrorMessage" in text:
             print(text)
             error_text = text.split("ErrorMessage: ")[1].split("\n")[0]
             raise Exception(error_text)
+
         text = text.replace("\r\n","")
-        text_json = json.loads(text)
+        text = re.sub(r'(\d)"(\s)', r'\1in\2', text)
+
+        
+        for i in range(10):
+            try:
+                text_json = json.loads(text)
+                break
+            except json.JSONDecodeError as e:
+                pos = e.pos
+                print(pos, repr(text[e.pos - 2: e.pos + 4]))
+                text = text[:e.pos - 2] + text[e.pos - 2: e.pos + 2].replace('"', '') + text[e.pos +2:]
+                text = clean_rfc_json(text)
+                rocketbot.log("Reintento eliminando comillas: " + str(i) )
+
+        else:
+            text_json = json.loads(text)
+                
+
+
         for k, v in text_json.items():
             try:
                 v = v.replace("\r\n","")
